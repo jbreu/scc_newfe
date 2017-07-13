@@ -24,6 +24,7 @@
 #findex tr {
     /* Add a bottom border to all table rows */
     border-bottom: 1px solid #ddd;
+    background-color: #fcfcfc;
 }
 
 #findex tr.header, #findex tr:hover {
@@ -31,13 +32,13 @@
     background-color: #f1f1f1;
 }
 
-input[list="orte"] {
+/*input[list="orte"] {
     width: 12em;
     border: none;
     background: #eee;
-}
-select {
+}*/
+/*select {
     width: 12em;
     margin: 0;
     margin-left: -12.75em;
-}
+}*/
