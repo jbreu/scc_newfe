@@ -3,8 +3,8 @@
 <table id=findex class="table table-hover table-responsive">
 	<script src="script.js"></script>
 	<tr class="active">
-    		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
-    		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
+		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
+		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
 		<!--<th>Region</th>-->
 <?php
 	if (isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)
@@ -13,9 +13,9 @@
 		echo "<th>Aktiv?<br/><input type=\"checkbox\" onclick=\"window.location.assign('table.php?aktiv=on')\"/></th>";
 ?>
 		<th>Gründung</th>
-		<th>Wahlspruch</th>
+		<th>Wahlspruch<br/><input type="text" id="filterWahlspruch" onkeyup="filter()" placeholder="Filter..."></th>
 		<th>Aufgegangen in</th>
-		<th>Verband</th>
+		<!--<th>Verband</th>-->
 		<th>Farben</th>
   	</tr>
 <?php
@@ -73,11 +73,11 @@
 		echo "<td><a href=details.php?kid=".$row->kid.">".$row->name."</a></td>";
 		echo "<td>".$row->ortname."</td>";
 		//echo "<td>".$row->region."</td>";
-        echo "<td>".($row->aktiv?"Ja":"Nein")."</td>";
-        echo "<td>".$row->gtag."".$row->gzeitraum."</td>";
-        echo "<td>".$row->wahlspruch."</td>";
-        echo "<td>".$row->fusion."</td>";
-		echo "<td>".$row->verbandname."</td>";
+    echo "<td>".($row->aktiv?"Ja":"Nein")."</td>";
+    echo "<td>".$row->gtag."".$row->gzeitraum."</td>";
+    echo "<td>".$row->wahlspruch."</td>";
+    echo "<td>".$row->fusion."</td>";
+		//echo "<td>".$row->verbandname."</td>";
 
 		echo "<td><table><tr>";
 		foreach ($band as $farb) {
