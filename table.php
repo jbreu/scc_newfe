@@ -1,8 +1,8 @@
 <?php include 'header.php';?>
 
-<table id="findex">
+<table id=findex class="table table-hover table-responsive">
 	<script src="script.js"></script>
-	<tr class="header">
+	<tr class="active">
     		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
     		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
 		<!--<th>Region</th>-->
@@ -44,6 +44,8 @@
 		$sql = $sql." AND band.farbe1=".$_GET['farbe1']." AND band.farbe2=".$_GET['farbe2']." AND band.farbe3=".$_GET['farbe3'];
 	}
 
+	$sql = $sql." ORDER BY name";
+
 	$statement = $mysqli->prepare($sql);
 	$statement->execute();
 
@@ -79,7 +81,7 @@
 
 		echo "<td><table><tr>";
 		foreach ($band as $farb) {
-			echo "<td bgcolor=".$farb."></td>";
+			echo "<div style='min-width:100px;''><td bgcolor=".$farb.">__</td></div>";
 		}
 		echo "</tr></td></table>";
 		echo "</tr>";

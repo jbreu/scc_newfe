@@ -44,7 +44,7 @@
 
         echo '</select><br/>';
 
-	echo '<input type="checkbox" name="aktiv" checked="checked">Aktive Korporationen<br>';
+	echo '<div class="checkbox"><label><input type="checkbox" name="aktiv" checked="checked">Aktive Korporationen</label></div>';
 
 	echo '<input type="submit" value="Suchen">';
 

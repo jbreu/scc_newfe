@@ -57,9 +57,9 @@
         	echo "Aufgegangen in: ".$row->fusion."<br/>";
 		echo "Verband: ".$row->verbandname."<br/><br/>";
 
-		echo "<table id='findex'><tr>";
+		echo "<table><tr>";
 		foreach ($band as $farb) {
-			echo "<td bgcolor=".$farb."></td>";
+			echo "<td bgcolor=".$farb.">__</td>";
 		}
 		echo "</tr></table>";
 		echo "<br/>";
@@ -91,25 +91,33 @@
             echo "</div>";
 	     }
 
-?>
-<br />
-  In dieser Korporation aufgegangen:<br />
+       $sql = "SELECT name FROM korporation WHERE korporation.aufgegangenin_id=".$kid;
 
-  <table id="findex">
-  	<script src="script.js"></script>
-  	<tr class="header">
-  		<th>Name</th>
-  		<th>Ort</th>
-      <th>Aktiv</th>
-  		<!--<th>Region</th>-->
-  		<th>Gründung</th>
-  		<th>Wahlspruch</th>
-  		<!--<th>Aufgegangen in</th>-->
-  		<!--<th>Verband</th>-->
-  		<th>Farben</th>
-    	</tr>
+       $statement = $mysqli->prepare($sql);
+       $statement->execute();
 
-  <?php
+       $statement->store_result();
+       $count = $statement->num_rows;
+
+       if($count>0) {
+
+         echo '<br />
+            In dieser Korporation aufgegangen:<br />
+
+            <table  class="table table-hover table-responsive">
+            	<tr class="active">
+            		<th>Name</th>
+            		<th>Ort</th>
+                <th>Aktiv</th>
+            		<!--<th>Region</th>-->
+            		<th>Gründung</th>
+            		<th>Wahlspruch</th>
+            		<!--<th>Aufgegangen in</th>-->
+            		<!--<th>Verband</th>-->
+            		<th>Farben</th>
+              	</tr>
+          ';
+
 
   	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aufgegangenin_id=".$kid;
 
@@ -148,11 +156,12 @@
 
   		echo "<td><table><tr>";
   		foreach ($band as $farb) {
-  			echo "<td bgcolor=".$farb."></td>";
+  			echo "<td bgcolor=".$farb.">__</td>";
   		}
   		echo "</tr></td></table>";
   		echo "</tr>";
   	}
+  }
   ?>
   </table>
 
