@@ -1,5 +1,6 @@
 <?php
 include 'settings.php';
+include 'functions.php';
 
 header("Content-Type: text/html; charset=utf-8");
 session_start();
