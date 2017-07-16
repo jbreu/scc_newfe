@@ -76,6 +76,33 @@
 		echo "</form>";
 	}
 ?>
+
+<script src="scripts/ajaxereignis.js"></script>
+
+<table id=ereignisse class="table table-hover table-responsive">
+<tbody>
+  <tr class="active">
+    <td>Text</td>
+    <td>Ereignistyp</td>
+    <td>Quelle</td>
+    <td>Datum</td>
+    <td>Jahr</td>
+  </tr>
+
+<?php
+    $sql = "SELECT * FROM ereignis WHERE korporation=".$kid;
+    $statement = $mysqli->prepare($sql);
+    $statement->execute();
+
+    $result = $statement->get_result();
+
+    while($row = $result->fetch_assoc()) {
+      echo "<tr><td>".$row['text']."</td><td>".$row['type']."</td><td>".$row['quelle']."</td><td>".$row['datum']."</td><td>".$row['jahr']."</td></tr>";
+    }
+?>
+  </tbody>
+  <input type=text id="text" /><button id="add">Add</button>
+  <input type=hidden id="kid" value=<?php echo $kid; ?>/>
 </table>
 
 <?php include 'footer.php'; ?>

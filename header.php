@@ -49,6 +49,8 @@ $username = $_SESSION['username'];
     			$( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
   		} );
  	 </script>-->
+
+   <script src="scripts/jquery-3.2.1.min.js"></script>
 </head>
 
 <nav class="navbar navbar-inverse">
