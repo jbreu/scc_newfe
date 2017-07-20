@@ -26,7 +26,7 @@ $mysqli= init_db();
 
 $name_startsWith=strtoupper($mysqli->real_escape_string($_GET['name_startsWith']));
 
-$sqlcolor = "SELECT * FROM ".$table." where ".$name." LIKE '".$name_startsWith."%'";
+$sqlcolor = "SELECT * FROM ".$table." where ".$name." LIKE '%".$name_startsWith."%'";
 $statement = $mysqli->prepare($sqlcolor);
 $statement->execute();
 $result = $statement->get_result();
