@@ -99,8 +99,8 @@
 
     $result = $statement->get_result();
 
-    while($row = $result->fetch_assoc()) {
-      echo "<tr><td>".$row['text']."</td><td>".$row['type']."</td><td>".$row['quelle']."</td><td>".$row['datum']."</td><td>".$row['jahr']."</td></tr>";
+    while($row = $result->fetch_object()) {
+      echo "<tr><td>".$row->text."</td><td>".$row->type."</td><td>".$row->quelle."</td><td>".$row->datum."</td><td>".$row->jahr."</td></tr>";
     }
 ?>
   </tbody>
