@@ -63,10 +63,11 @@ $username = $_SESSION['username'];
       <li><a href=index.php>Startseite</a></li>
       <li><a href=table.php?aktiv=on>Tabellenansicht</a></li>
       <li><a href=couleursuche.php>Couleursuche</a></li>
+      <li><a href=quellen.php>Quellenverzeichnis</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $username; ?></a></li>
-      <li><a href=logout.php><span class="glyphicon glyphicon-log-out"></span> Abmelden</a></li>
+      <li><a href=logout.php><span class="glyphicon glyphicon-log-out"></span> Abmelden (nur SCC)</a></li>
     </ul>
   </div>
 </nav>
