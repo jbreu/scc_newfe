@@ -5,7 +5,7 @@
 	<tr class="active">
 		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
 		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
-		<!--<th>Region</th>-->
+
 <?php
 	if (isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)
 		echo "<th>Aktiv?<br/><input type=\"checkbox\" checked=\"checked\" onclick=\"window.location.assign('table.php?aktiv=off')\"/></th>";
@@ -16,6 +16,7 @@
 		<th>Wahlspruch<br/><input type="text" id="filterWahlspruch" onkeyup="filter()" placeholder="Filter..."></th>
 		<th>Aufgegangen in</th>
 		<!--<th>Verband</th>-->
+		<!--<th>Region</th>-->
 		<th>Farben</th>
   	</tr>
 <?php
@@ -27,12 +28,15 @@
     		die('Connect failed: '.$mysqli->connect_error.'\n');
 	}
 
-
-	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aktiv=".((isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)?"1":"0");
+	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.id as oid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aktiv=".((isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)?"1":"0");
 
 	if (isset($_GET['farbe1']) && isset($_GET['farbe2']) && isset($_GET['farbe3']) &&
 		is_numeric($_GET['farbe1']) && is_numeric($_GET['farbe2']) && is_numeric($_GET['farbe3'])) {
 		$sql = $sql." AND band.farbe1=".$_GET['farbe1']." AND band.farbe2=".$_GET['farbe2']." AND band.farbe3=".$_GET['farbe3'];
+	}
+
+	if (isset($_GET['oid']) && is_numeric($_GET['oid'])) {
+		$sql = $sql." AND korporation.ort=".$_GET['oid'];
 	}
 
 	$sql = $sql." ORDER BY name";
@@ -45,7 +49,7 @@
 	while($row = $result->fetch_object()) {
 		echo "<tr class='eintrag'>";
 		echo "<td><a href=details.php?kid=".$row->kid.">".$row->name."</a></td>";
-		echo "<td>".$row->ortname."</td>";
+		echo "<td><a href=table.php?aktiv=on&oid=".$row->oid.">".$row->ortname."</a></td>";
 		//echo "<td>".$row->region."</td>";
     echo "<td>".($row->aktiv?"Ja":"Nein")."</td>";
     echo "<td>".$row->gtag."".$row->gzeitraum."</td>";
