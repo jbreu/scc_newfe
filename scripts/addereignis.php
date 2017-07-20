@@ -9,7 +9,7 @@ $mysqli->set_charset("utf8");
 
 /* check connection */
 if ($mysqli->connect_errno) {
-    header('Datensatz konnte nicht hinzugefügt werden! '.$_POST['text']);
+    header('Datensatz konnte nicht hinzugefügt werden!');
     exit();
 }
 
@@ -18,7 +18,7 @@ $statement = $mysqli->prepare($sql);
 $state = $statement->execute();
 
 while (false===$state) {
-  header('Datensatz konnte nicht hinzugefügt werden! '.$_POST['text']);
+  header('Datensatz konnte nicht hinzugefügt werden!');
   exit();
 }
 
