@@ -34,10 +34,30 @@
 
 		echo "Aktiv: <input type='checkbox' name='aktiv' ".($row->aktiv?"checked='checked'":"")."><br/>";
 
-		echo "Gruendung <br>";
-			echo "&nbsp;Gruendungstag: <input type='text' id='datepicker' name='gtag' value='".$row->gtag."'><br/>";
-  		echo "&nbsp;Gruendungszeitraum: <input type='text' name='gzeitraum' value='".$row->gzeitraum."'><br/>";
-		echo "Wahlspruch: <input type='text' name='wahlspruch' value='".$row->wahlspruch."'><br/>";
+    echo '
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+    <script src="scripts/moment-with-locales.min.js"></script>
+    <script src="scripts/bootstrap-datetimepicker.min.js"></script>';
+
+    echo 'Gründungstag: <div class="input-group date" id="gtagpicker">
+             <input type="text" class="form-control" name="gtag" value="'.$row->gtag.'">
+             <span class="input-group-addon">
+                 <span class="glyphicon glyphicon-calendar"></span>
+             </span>
+         </div>';
+
+         echo "<script type='text/javascript'>
+            $(function () {
+                $('#gtagpicker').datetimepicker({
+                  format: 'YYYY-MM-DD'
+                });
+            });
+        </script>";
+
+
+		//echo "Gruendungstag: <input class='form-control' id='gtagpicker' name='gtag' value='".$row->gtag."'><br/>";
+		echo "Gründungszeitraum: <input class='form-control' type='text' name='gzeitraum' value='".$row->gzeitraum."'><br/>";
+		echo "Wahlspruch: <input class='form-control' name='wahlspruch' value='".$row->wahlspruch."'>";
   	echo "Aufgegangen in: <input class='form-control txt-auto' id='nachfolger' value='".$row->fusion."'>";
       echo "<input name='nachfolgerid' id='nachfolgerid' value='".$row->fusionid."'>";
 
