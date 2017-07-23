@@ -15,16 +15,6 @@
     		die('Connect failed: '.$mysqli->connect_error.'\n');
 	}
 
-	$sqlcolor = "SELECT * FROM farbe";
-	$statement = $mysqli->prepare($sqlcolor);
-	$statement->execute();
-	$result = $statement->get_result();
-	$colors;
-
-	while ($row = $result->fetch_object()) {
-		$colors[$row->id]=$row;
-	}
-
 	$sql = "SELECT korporation.name as name, ort.name as ortname, ort.id as ortid, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, korporation.aufgegangenin_id as fusionid, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
 	$statement = $mysqli->prepare($sql);
 	$statement->execute();
@@ -32,23 +22,6 @@
 	$result = $statement->get_result();
 
 	while($row = $result->fetch_object()) {
-		$band=array();
-		if ($row->farbe1!=0) {
-			$band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe1])->rot, ($colors[(int)$row->farbe1])->gruen, ($colors[(int)$row->farbe1])->blau);
-		}
-		if ($row->farbe2!=0) {
-			$band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe2])->rot, ($colors[(int)$row->farbe2])->gruen, ($colors[(int)$row->farbe2])->blau);
-		}
-		if ($row->farbe3!=0) {
-			$band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe3])->rot, ($colors[(int)$row->farbe3])->gruen, ($colors[(int)$row->farbe3])->blau);
-		}
-		if ($row->farbe4!=0) {
-			$band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe4])->rot, ($colors[(int)$row->farbe4])->gruen, ($colors[(int)$row->farbe4])->blau);
-		}
-		if ($row->farbe5!=0) {
-			$band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe5])->rot, ($colors[(int)$row->farbe5])->gruen, ($colors[(int)$row->farbe5])->blau);
-		}
-
 		echo "<form action='details.php' method='post'>";
 		echo "<h1>Name: <input type='text' name='name' value='".$row->name."'></h1><br/>";
 
@@ -70,7 +43,8 @@
 
 		echo "Verband: ".$row->verbandname."<br/><br/>";
 
-		echo "<table id='findex'><tr>";
+    $band = get_band($row);
+		echo "<table><tr>";
 		foreach ($band as $farb) {
 			echo "<td bgcolor=".$farb."></td>";
 		}
