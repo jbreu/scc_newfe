@@ -106,27 +106,27 @@ Ereignisse:<br />
 
   $result = $statement->get_result();
 
-    while($row = $result->fetch_object()) {
-      echo "<tr><td>".$row->datum.$row->jahr."</td><td>".$row->typname.": ".$row->text;
+  while($row = $result->fetch_object()) {
+    echo "<tr><td>".$row->datum.$row->jahr."</td><td>".$row->typname.": ".$row->text;
 
-      if (!empty($row->fremdeKorporation1_id)) {
-        echo "<a href='details.php?kid=".$row->fremdeKorporation1_id."'>".$row->fremdeKorporation1_name."</a>";
-      }
-
-      if (!empty($row->verbandname)) {
-        echo "<a>".$row->verbandname."</a>";
-      }
-
-      if (!empty($row->ktypname)) {
-        echo "<a>".$row->ktypname."</a>";
-      }
-
-      if (!empty($row->quellekuerzel) && !empty($row->quelleid)) {
-        echo "</td><td><a href='quellen.php#anker".$row->quelleid."'>".$row->quellekuerzel."</a></td></tr>";
-      } else {
-        echo "</td><td></td></tr>";
-      }
+    if (!empty($row->fremdeKorporation1_id)) {
+      echo "<a href='details.php?kid=".$row->fremdeKorporation1_id."'>".$row->fremdeKorporation1_name."</a>";
     }
+
+    if (!empty($row->verbandname)) {
+      echo "<a>".$row->verbandname."</a>";
+    }
+
+    if (!empty($row->ktypname)) {
+      echo "<a>".$row->ktypname."</a>";
+    }
+
+    if (!empty($row->quellekuerzel) && !empty($row->quelleid)) {
+      echo "</td><td><a href='quellen.php#anker".$row->quelleid."'>".$row->quellekuerzel."</a></td></tr>";
+    } else {
+      echo "</td><td></td></tr>";
+    }
+  }
 
     echo '</tbody>
         </table>';

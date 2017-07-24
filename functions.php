@@ -14,6 +14,22 @@ function init_db() {
   return $mysqli;
 }
 
+function get_mensurstandpunkte() {
+  $mysqli = init_db();
+	$sqlms = "SELECT * FROM mensurstandpunkt";
+	$statement = $mysqli->prepare($sqlms);
+	$statement->execute();
+	$result = $statement->get_result();
+
+  $mensurstandpunkte = array();
+
+	while ($row = $result->fetch_object()) {
+    $mensurstandpunkte[] = $row;
+	}
+
+  return $mensurstandpunkte;
+}
+
 function get_colors() {
   $mysqli = init_db();
 	$sqlcolor = "SELECT * FROM farbe";
@@ -63,6 +79,24 @@ function get_korporation($kid) {
 
   $result = $statement->get_result();
   return $result->fetch_object();
+}
+
+function get_ereignistypen() {
+  $mysqli = init_db();
+
+	$sql = "SELECT * FROM ereignistyp";
+  $statement = $mysqli->prepare($sql);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  $ereignistypen = array();
+
+	while ($row = $result->fetch_object()) {
+    $ereignistypen[] = $row;
+	}
+
+  return $ereignistypen;
 }
 
 ?>

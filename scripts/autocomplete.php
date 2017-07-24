@@ -1,7 +1,13 @@
 <?php
+
+session_start();
+if(!isset($_SESSION['userid'])) {
+ header('Kein Benutzer!');
+ exit();
+}
+
 require_once '../functions.php';
 
-$supported_tables = array("ort", "nachfolger", "verband");
 $table="";
 $name="";
 
@@ -14,6 +20,21 @@ switch ($_GET['type']) {
   case 'nachfolger':
     $table='korporation';
     $name='name';
+    break;
+
+  case 'verband':
+    $table='verband';
+    $name='name';
+    break;
+
+  case 'korporationstyp':
+    $table='korporationstyp';
+    $name='name';
+    break;
+
+  case 'quelle':
+    $table='quelle';
+    $name='kuerzel';
     break;
 
   default:
@@ -35,7 +56,7 @@ $data = array();
 while ($row = $result->fetch_assoc()) {
   $a_json_row = array();
 	$a_json_row["value"] = $row['id'];
-	$a_json_row["label"] = $row['name'];
+	$a_json_row["label"] = $row[$name];
   if ($table=='ort')
     $a_json_row["label"].=" (".$row['region'].")";
 	array_push($data, $a_json_row);
