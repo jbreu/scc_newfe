@@ -27,14 +27,14 @@ $username = $_SESSION['username'];
   <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <link href="bootstrap-3.3.7/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+  <!--<link href="bootstrap-3.3.7/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
   <!-- Custom styles for this template -->
   <!--<link href="starter-template.css" rel="stylesheet">-->
 
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <script src="bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>
+  <!--<script src="bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>-->
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -44,12 +44,7 @@ $username = $_SESSION['username'];
 
 	<link rel="stylesheet" type="text/css" href="css/default.css">
   <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script>
-		$( function() {
-    			$( "#datepicker" ).datepicker({dateFormat: "yy-mm-dd"});
-  		} );
- 	 </script>-->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 
    <script src="scripts/jquery-3.2.1.min.js"></script>
 </head>
