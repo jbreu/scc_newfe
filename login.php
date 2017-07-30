@@ -39,14 +39,31 @@ if(isset($errorMessage)) {
 }
 ?>
 
-<form action="?login=1" method="post">
-Benutzername:<br>
-<input type="username" size="40" maxlength="250" name="username"><br><br>
+<link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="scripts/login.css" rel="stylesheet">
 
-Passwort:<br>
-<input type="password" size="40"  maxlength="250" name="passwort"><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3">
+            <div class="form-login">
+            <form action="?login=1" method="post">
+            <h4>Willkommen beim SCC</h4>
+            <input type="text" id="userName" name="username" class="form-control input-sm chat-input" placeholder="username" />
+            </br>
+            <input type="password" id="userPassword" name="passwort" class="form-control input-sm chat-input" placeholder="password" />
+            </br>
+            <div class="wrapper">
+            <span class="group-btn">
+                  <input type="submit" class="btn btn-primary btn-md" value="Anmelden" />
+                <!--<a href="#" class="btn btn-primary btn-md">Anmelden <i class="fa fa-sign-in"></i></a>-->
+            </span>
+            </form>
+            </div>
+            </div>
 
-<input type="submit" value="Anmelden">
-</form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
