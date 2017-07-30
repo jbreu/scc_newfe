@@ -1,3 +1,7 @@
+function toggler(divId) {
+  $("#" + divId).toggle();
+}
+
 $(document).ready(function() {
     $("#add").click(function(){
         var element = $(this);
