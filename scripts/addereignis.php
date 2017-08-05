@@ -79,7 +79,12 @@ if (!empty($ktypid) && !is_numeric($ktypid)) {
   errormsg('Ungültiger Korporationstyp!');
 }
 
-$sql = "INSERT INTO ereignis (type, korporation, quelle, text, datum, jahr, fremdeKorporation1, fremdeKorporation2, verband, korporationstyp) VALUES ('".$etype."', '".$kid."', '".$quelle."', '".$text."', '".$evgtag."', '".$evgzeitraum."', '".$kidfremd1."', '".$kidfremd2."', '".$evverbandvid."', '".$ktypid."')";
+$editor = $_POST['editor'];
+if (empty($editor) || !is_numeric($editor)) {
+  errormsg('Ungültiger Bearbeiter!');
+}
+
+$sql = "INSERT INTO ereignis (type, korporation, quelle, text, datum, jahr, fremdeKorporation1, fremdeKorporation2, verband, korporationstyp, editor) VALUES ('".$etype."', '".$kid."', '".$quelle."', '".$text."', '".$evgtag."', '".$evgzeitraum."', '".$kidfremd1."', '".$kidfremd2."', '".$evverbandvid."', '".$ktypid."', '".$editor."')";
 $statement = $mysqli->prepare($sql);
 $state = $statement->execute();
 

@@ -15,6 +15,7 @@ $(document).ready(function() {
         var kidfremd2 = $("#kid2id").val();
         var evverbandvid = $("#evverbandvid").val();
         var ktypid = $("#ktypid").val();
+        var editor = $("#editor").val();
         jQuery.ajax({
           type    : "POST",
           url     : "scripts/addereignis.php",
@@ -27,7 +28,8 @@ $(document).ready(function() {
                       kidfremd1:kidfremd1,
                       kidfremd2:kidfremd2,
                       evverbandvid:evverbandvid,
-                      ktypid:ktypid
+                      ktypid:ktypid,
+                      editor:editor
                     },
           success : function(){
                var line="<tr><td>";

@@ -82,7 +82,13 @@
 
 ?>
 
+<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css" />
+<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="scripts/autocomplete.js"></script>
 <script src="scripts/ajaxereignis.js"></script>
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+<script src="scripts/moment-with-locales.min.js"></script>
+<script src="scripts/bootstrap-datetimepicker.min.js"></script>
 
 <table id=ereignisse class="table table-hover table-responsive">
 <tbody>
@@ -93,7 +99,7 @@
  </tr>
 
 <?php
-   $sql = "SELECT ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid;
+   $sql = "SELECT ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid." ORDER BY datum";
    $statement = $mysqli->prepare($sql);
    $statement->execute();
 
@@ -166,7 +172,7 @@
    }
  </script>
 </table>
-<!--<button class="btn btn-primary" onclick="toggler('editevents');">Bearbeitungsmodus ein/ausschalten</button>-->
+<button class="btn btn-primary" onclick="toggler('editevents');">Ereignisse: Bearbeitungsmodus ein/ausschalten</button>
 <div class="form-group row" style="display:none" id="editevents">
  <div class="col-xs-2">
    <label for="ereignistyp">Ereignistyp</label>
@@ -230,13 +236,12 @@
  <div class="col-xs-2">
    <label for="add">Abschließen</label>
    <input type=hidden name='kid' id='kid' value='<?php echo $kid; ?>'>
+   <input type=hidden name='editor' id='editor' value='<?php echo $_SESSION['userid'];?>' />
    <button class="btn btn-primary" id="add">Ereignis hinzufügen</button>
  </div>
 </div>
 
 <?php
-
-
    $sql = "SELECT name FROM korporation WHERE korporation.aufgegangenin_id=".$kid;
 
    $statement = $mysqli->prepare($sql);
@@ -247,7 +252,7 @@
 
    if($count>0) {
 
-     echo '<br />
+     echo '<br /><br /><hr />
         In dieser Korporation aufgegangen:<br />
 
         <table  class="table table-hover table-responsive">
