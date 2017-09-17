@@ -27,7 +27,8 @@
 	$result = $statement->get_result();
 
 	while($row = $result->fetch_object()) {
-		echo "<form action='details.php' method='post'>";
+		echo "<form action='details.php?kid=".$kid."' method='post'>";
+    echo "<input type=hidden name='kid' value='".$kid."'>";
 		echo "<h1>Name: <input type='text' name='name' value='".$row->name."'></h1><br/>";
 
     echo "Straße: <input type='text' class='form-control' name='strasse' value='".$row->strasse."'>";
@@ -90,6 +91,7 @@
 		}
 		echo "</tr></table>";
 		echo "<br/>";
+    echo "<input class='btn btn-primary' type='submit' value='Speichern'>";
 		echo "</form>";
 	}
 ?>

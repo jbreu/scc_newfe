@@ -15,6 +15,9 @@
     		die('Connect failed: '.$mysqli->connect_error.'\n');
 	}
 
+  // Make changes if corresponding POST variables are set;
+  include 'change.php';
+
 	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion_text, korporation.aufgegangenin_id as fusion_id, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
 	$statement = $mysqli->prepare($sql);
 	$statement->execute();
@@ -31,7 +34,8 @@
         </object></div>';
     }
 
-		echo "<h1>".$row->name."</h1><br/>";
+		echo "<h1>".$row->name."</h1>";
+    echo '<a href="edit.php?kid='.$kid.'" class="btn btn-info" role="button">Bearbeiten</a><br/>';
 		echo "Ort: ".$row->ortname." (".$row->region.")<br/>";
   	echo "Aktiv: ".($row->aktiv?"Ja":"Nein")."<br/>";
   	echo "Gründung: ".$row->gtag."".$row->gzeitraum."<br/>";
