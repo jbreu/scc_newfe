@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 
 <table id=findex class="table table-hover table-responsive">
-	<script src="script.js"></script>
+	<script src="scripts/filter.js"></script>
 	<tr class="active">
 		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
 		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
