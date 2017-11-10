@@ -24,9 +24,11 @@
 
 	$result = $statement->get_result();
 
+  $sccid=0;
+
 	while($row = $result->fetch_object()) {
     // Zeige Folio-PDF (falls vorhanden)
-    $filestr = 'files/*'.strtolower(trim($row->sccid)).'.pdf';
+    $filestr = 'files/folios/*'.strtolower(trim($row->sccid)).'.pdf';
     $list = glob($filestr);
     if (sizeof($list)==1) {
     echo '<div style="float:right"><object data="'.$list[0].'" type="application/pdf" width=600px height=400px>
@@ -40,6 +42,8 @@
   	echo "Aktiv: ".($row->aktiv?"Ja":"Nein")."<br/>";
   	echo "Gründung: ".$row->gtag."".$row->gzeitraum."<br/>";
   	echo "Wahlspruch: ".$row->wahlspruch."<br/>";
+
+    $sccid = str_replace(" ", "", str_replace("-", "", $row->sccid));
 
     if (!empty($row->fusion_id)) {
       echo "Aufgegangen in: <a href='details.php?kid=".$row->fusion_id."'>".get_korporation($row->fusion_id)->name."</a><br/>";
@@ -59,30 +63,42 @@
 	}
 
 	$sql = "SELECT * FROM wappen WHERE wappen.korporation=".$kid;
-        $statement = $mysqli->prepare($sql);
-        $statement->execute();
+  $statement = $mysqli->prepare($sql);
+  $statement->execute();
 
-        $result = $statement->get_result();
+  $result = $statement->get_result();
 
-        while($row = $result->fetch_object()) {
-		        echo "Wappen:<br><div style='padding-left:5em'>";
-        			if (!empty($row->helmzier)) echo "Helmzier: ".$row->helmzier."<br>";
-        			if (!empty($row->felder)) echo "Felder: ".$row->felder."<br>";
-             	if (!empty($row->ungeteilt)) echo "Ungeteilt: ".$row->ungeteilt."<br>";
-              if (!empty($row->rechts)) echo "Rechts: ".$row->rechts."<br>";
-             	if (!empty($row->oben)) echo "Oben: ".$row->oben."<br>";
-             	if (!empty($row->oben_rechts)) echo "Oben rechts: ".$row->oben_rechts."<br>";
-             	if (!empty($row->oben_links)) echo "Oben links: ".$row->oben_links."<br>";
-             	if (!empty($row->mittelbalken)) echo "Mittelbalken: ".$row->mittelbalken."<br>";
-             	if (!empty($row->herzschild)) echo "Herzschild: ".$row->herzschild."<br>";
-             	if (!empty($row->vierung)) echo "Vierung: ".$row->vierung."<br>";
-              if (!empty($row->unten_links)) echo "Unten links: ".$row->unten_links."<br>";
-              if (!empty($row->unten_rechts)) echo "Unten rechts: ".$row->unten_rechts."<br>";
-              if (!empty($row->unten)) echo "Unten: ".$row->unten."<br>";
-              if (!empty($row->links)) echo "Links: ".$row->links."<br>";
-              if (!empty($row->rand)) echo "Rand: ".$row->rand."<br>";
-            echo "</div>";
-	     }
+  while($row = $result->fetch_object()) {
+      echo "Wappen:<br><div style='padding-left:5em'>";
+  			if (!empty($row->helmzier)) echo "Helmzier: ".$row->helmzier."<br>";
+  			if (!empty($row->felder)) echo "Felder: ".$row->felder."<br>";
+       	if (!empty($row->ungeteilt)) echo "Ungeteilt: ".$row->ungeteilt."<br>";
+        if (!empty($row->rechts)) echo "Rechts: ".$row->rechts."<br>";
+       	if (!empty($row->oben)) echo "Oben: ".$row->oben."<br>";
+       	if (!empty($row->oben_rechts)) echo "Oben rechts: ".$row->oben_rechts."<br>";
+       	if (!empty($row->oben_links)) echo "Oben links: ".$row->oben_links."<br>";
+       	if (!empty($row->mittelbalken)) echo "Mittelbalken: ".$row->mittelbalken."<br>";
+       	if (!empty($row->herzschild)) echo "Herzschild: ".$row->herzschild."<br>";
+       	if (!empty($row->vierung)) echo "Vierung: ".$row->vierung."<br>";
+        if (!empty($row->unten_links)) echo "Unten links: ".$row->unten_links."<br>";
+        if (!empty($row->unten_rechts)) echo "Unten rechts: ".$row->unten_rechts."<br>";
+        if (!empty($row->unten)) echo "Unten: ".$row->unten."<br>";
+        if (!empty($row->links)) echo "Links: ".$row->links."<br>";
+        if (!empty($row->rand)) echo "Rand: ".$row->rand."<br>";
+      echo "</div>";
+ }
+
+ $sql = "SELECT * FROM zirkel WHERE sccid='".$sccid."'";
+ $statement = $mysqli->prepare($sql);
+ $statement->execute();
+
+ $result = $statement->get_result();
+
+ while($row = $result->fetch_object()) {
+     echo "Zirkel:<br><div style='padding-left:5em'>";
+        echo "<img src='files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'> ";
+     echo "</div>";
+}
 
 ?>
 
