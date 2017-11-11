@@ -4,5 +4,6 @@
 <a href="couleursuche.php">Couleursuche</a><br />
 <a href="quellen.php">Quellenverzeichnis</a><br />
 <a href="wappen.php">Wappenverzeichnis</a><br />
+<a href="zirkel.php">Zirkelverzeichnis</a><br />
 
 <?php include 'footer.php' ?>

@@ -60,6 +60,7 @@ $username = $_SESSION['username'];
       <li><a href=couleursuche.php>Couleursuche</a></li>
       <li><a href=quellen.php>Quellenverzeichnis</a></li>
       <li><a href="wappen.php">Wappenverzeichnis</a><br /></li>
+      <li><a href="zirkel.php">Zirkel</a><br /></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $username; ?></a></li>
