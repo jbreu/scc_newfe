@@ -20,8 +20,12 @@ $statement->execute();
 $result = $statement->get_result();
 
 while($row = $result->fetch_object()) {
-  echo "<a href=zirkel.php?main=".$row->hauptbuchstabe.">".$row->hauptbuchstabe."</a> |";
+  if (strcmp($row->hauptbuchstabe, "Sonderform")!=0) {
+    echo "<a href=zirkel.php?main=".$row->hauptbuchstabe.">".$row->hauptbuchstabe."</a> | ";
+  }
 }
+
+echo "<a href=zirkel.php?main=Sonderform>Sonderform</a>";
 ?>
 
 <table class="table table-hover table-responsive">
@@ -29,7 +33,11 @@ while($row = $result->fetch_object()) {
   $hbs = "A";
 
   if (isset($_GET['main'])) {
-    $hbs = $_GET['main'];
+    if (strcmp($_GET['main'], "Sonderform")==0) {
+      $hbs = "Sonderform";
+    } else {
+      $hbs = $_GET['main'][0];
+    }
   }
 
 	$sql = "SELECT zirkel.zeichen as zeichen, zirkel.farbespezifisch as farbespezifisch, zirkel.dateiname as dateiname, zirkel.sccid as sccid, zirkel.eigenschaft as eigenschaft, filteredKorporation.id as kid, filteredKorporation.name as name FROM zirkel LEFT JOIN (SELECT id, sccid, name FROM korporation WHERE aufgegangenin_id=0 GROUP by sccid) as filteredKorporation ON zirkel.sccid=filteredKorporation.sccid WHERE zirkel.hauptbuchstabe='".$hbs."' ORDER BY zirkel.hauptbuchstabe,zirkel.zeichen,zirkel.eigenschaft";
