@@ -71,13 +71,13 @@ echo "<a href=zirkel.php?main=Sonderform>Sonderform</a>";
 
 		echo "<td>";
     echo "<table>";
+      echo "<tr><td><a href='files/zirkel/".$row->dateiname."' ><img data-src='files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'></a></td></tr>";
       echo "<tr><td>".$row->farbespezifisch."</td></tr>";
       if ($row->kid!==NULL) {
         echo "<tr><td><a href=details.php?kid=".$row->kid.">".$row->name."</a></td></tr>";
       }else {
         echo "<tr><td>".$row->sccid."</td></tr>";
       }
-      echo "<tr><td><a href='files/zirkel/".$row->dateiname."' ><img data-src='files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'></a></td></tr>";
     echo "</table>";
 		echo "</td>";
 	}
