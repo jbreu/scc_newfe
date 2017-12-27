@@ -27,6 +27,12 @@ $(document).ready(function() {
   		      	minLength: 2
   		      });
 
+            $('#nachfolger').bind('input', function() {
+              if ($(this).val()=="") {
+                $('#nachfolger').val(""); // display the selected text
+                $("#nachfolgerid").val("0");
+              }
+            });
             $('#nachfolger').autocomplete({
             		      	source: function( request, response ) {
             		      		$.ajax({

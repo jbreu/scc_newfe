@@ -79,7 +79,7 @@
     echo '</select>';
 
     echo "Waffenspruch: <input class='form-control' name='waffenspruch' value='".$row->waffenspruch."'>";
-  	echo "Aufgegangen in: <input class='form-control txt-auto' id='nachfolger' value='".$row->fusion."'>";
+  	echo "Aufgegangen in: <input class='form-control txt-auto' name='nachfolger' id='nachfolger' value='".$row->fusion."'>";
     echo "<input type=hidden name='nachfolgerid' id='nachfolgerid' value='".$row->fusionid."'>";
     echo "Verband: <input class='form-control txt-auto' id='verband' value='".$row->verbandname."'>";
     echo "<input type=hidden name='verbandid' id='verbandid' value='".$row->verbandid."'>";
