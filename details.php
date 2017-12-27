@@ -3,7 +3,7 @@
 
 	$kid=1;
 	if (!isset($_GET['kid']) || !is_numeric($_GET["kid"]))
-		die("Keine Korporation angegeben!");
+		die("Keine (valide) Korporation angegeben!");
 	else
 		$kid=$_GET["kid"];
 
@@ -262,6 +262,8 @@
 </div>
 
 <?php
+if ($kid!=0) {
+
    $sql = "SELECT name FROM korporation WHERE korporation.aufgegangenin_id=".$kid;
 
    $statement = $mysqli->prepare($sql);
@@ -316,8 +318,11 @@
   		echo "</tr></td></table>";
   		echo "</tr>";
   	}
+
+    echo "</table>";
   }
+}
   ?>
-  </table>
+
 
   <?php include 'footer.php'; ?>
