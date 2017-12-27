@@ -48,9 +48,9 @@ if(isset($errorMessage)) {
             <div class="form-login">
             <form action="?login=1" method="post">
             <h4>Willkommen beim SCC</h4>
-            <input type="text" id="userName" name="username" class="form-control input-sm chat-input" placeholder="username" />
+            <input type="text" id="userName" name="username" class="form-control input-sm chat-input" placeholder="Benutzername" />
             </br>
-            <input type="password" id="userPassword" name="passwort" class="form-control input-sm chat-input" placeholder="password" />
+            <input type="password" id="userPassword" name="passwort" class="form-control input-sm chat-input" placeholder="Passwort" />
             </br>
             <div class="wrapper">
             <span class="group-btn">
@@ -60,7 +60,7 @@ if(isset($errorMessage)) {
             </form>
             </div>
             </div>
-
+            Die Zugangsdaten sind die gleichen wie bei <a href=korpozoo.de>Korpozoo.de</a>. Falls Sie Ihre Zugangsdaten vergessen haben, verwenden Sie bitte diesen <a href=https://korpozoo.de/ucp.php?mode=sendpassword>Link</a>.
         </div>
     </div>
 </div>
