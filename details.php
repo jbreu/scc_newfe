@@ -37,7 +37,14 @@
     }
 
 		echo "<h1>".$row->name."</h1>";
-    echo '<a href="edit.php?kid='.$kid.'" class="btn btn-info" role="button">Bearbeiten</a><br/>';
+    echo '<a href="edit.php?kid='.$kid.'" class="btn btn-info" role="button">Bearbeiten</a> <a class="btn btn-danger" role="button" onclick="return confirm_click();" href="https://korpozoo.de/scc/delete.php?kid='.$kid.'">Löschen</a><br/>';
+
+    echo '<script>
+      function confirm_click() {
+          return confirm("Wollen Sie diese Korporation wirklich entfernen?\nEine Löschung kann nur vom Administrator rückgängig gemacht werden!");
+      }
+    </script>';
+
 		echo "Ort: ".$row->ortname." (".$row->region.")<br/>";
   	echo "Aktiv: ".($row->aktiv?"Ja":"Nein")."<br/>";
   	echo "Gründung: ".$row->gtag."".$row->gzeitraum."<br/>";
@@ -322,7 +329,7 @@ if ($kid!=0) {
     echo "</table>";
   }
 }
-  ?>
+?>
 
 
-  <?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>
