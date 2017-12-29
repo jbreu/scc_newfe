@@ -1,5 +1,7 @@
 <?php include 'header.php';?>
 
+<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a><br/><br/>
+
 <table id=findex class="table table-hover table-responsive">
 	<script src="scripts/filter.js"></script>
 	<tr class="active">
@@ -28,7 +30,7 @@
     		die('Connect failed: '.$mysqli->connect_error.'\n');
 	}
 
-	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.id as oid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aktiv=".((isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)?"1":"0");
+	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.id as oid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5, band.farbe6 as farbe6, band.farbe7 as farbe7, band.farbe8 as farbe8, band.farbe9 as farbe9, band.farbe10 as farbe10 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aktiv=".((isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)?"1":"0");
 
 	if (isset($_GET['farbe1']) && isset($_GET['farbe2']) && isset($_GET['farbe3']) &&
 		is_numeric($_GET['farbe1']) && is_numeric($_GET['farbe2']) && is_numeric($_GET['farbe3'])) {
