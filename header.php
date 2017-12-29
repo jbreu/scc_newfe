@@ -5,6 +5,7 @@ include 'functions.php';
 header("Content-Type: text/html; charset=utf-8");
 session_start();
 if(!isset($_SESSION['userid'])) {
+ echo '<head><meta http-equiv="refresh" content="3;url=https://korpozoo.de/scc/login.php" /></head>';
  die('Bitte zuerst <a href="login.php">einloggen</a>');
 }
 
@@ -47,6 +48,7 @@ $username = $_SESSION['username'];
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
 
    <script src="scripts/jquery-3.2.1.min.js"></script>
+   <script src="scripts/accordion.js"></script>
 </head>
 
 <nav class="navbar navbar-inverse">

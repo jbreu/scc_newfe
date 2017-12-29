@@ -78,6 +78,12 @@
 	$sql = "SELECT * FROM wappen WHERE wappen.korporation=".$kid;
   $statement = $mysqli->prepare($sql);
   $statement->execute();
+  $statement->store_result();
+
+  echo '<button class="accordion">Wappen ('.$statement->num_rows.')</button>
+  <div class="panel">';
+
+  $statement->execute();
 
   $result = $statement->get_result();
 
@@ -101,8 +107,16 @@
       echo "</div>";
  }
 
+ echo '</div>';
+
  $sql = "SELECT * FROM zirkel WHERE sccid='".$sccid."'";
  $statement = $mysqli->prepare($sql);
+ $statement->execute();
+ $statement->store_result();
+
+ echo '<button class="accordion">Zirkel ('.$statement->num_rows.')</button>
+ <div class="panel">';
+
  $statement->execute();
 
  $result = $statement->get_result();
@@ -112,7 +126,18 @@
         echo "<img src='files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'> ";
      echo "</div>";
 }
+echo '</div>';
 
+?>
+
+<?php
+   $sql = "SELECT ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid." ORDER BY datum";
+   $statement = $mysqli->prepare($sql);
+   $statement->execute();
+   $statement->store_result();
+
+   echo '<button class="accordion">Ereignisse ('.$statement->num_rows.')</button>
+   <div class="panel">';
 ?>
 
 <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css" />
@@ -132,8 +157,6 @@
  </tr>
 
 <?php
-   $sql = "SELECT ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid." ORDER BY datum";
-   $statement = $mysqli->prepare($sql);
    $statement->execute();
 
    $result = $statement->get_result();
@@ -273,6 +296,7 @@
    <button class="btn btn-primary" id="add">Ereignis hinzufügen</button>
  </div>
 </div>
+</div>
 
 <?php
 if ($kid!=0) {
@@ -285,10 +309,16 @@ if ($kid!=0) {
    $statement->store_result();
    $count = $statement->num_rows;
 
+   echo '<button class="accordion">Vorgänger ('.$count.')</button>
+   <div class="panel">';
+
+   $statement->execute();
+
+   $result = $statement->get_result();
+
    if($count>0) {
 
-     echo '<br /><br /><hr />
-        In dieser Korporation aufgegangen:<br />
+     echo 'In dieser Korporation aufgegangen:<br />
 
         <table  class="table table-hover table-responsive">
         	<tr class="active">
@@ -335,6 +365,7 @@ if ($kid!=0) {
     echo "</table>";
   }
 }
+echo '</div>';
 ?>
 
 
