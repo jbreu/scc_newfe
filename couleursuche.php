@@ -22,27 +22,33 @@
 	echo "<form action='table.php' method='get' width=300px>";
 	echo '<select name=farbe1>';
 
-	foreach ($colors as $color) {
-		echo '<option value="'.$color->id.'">'.$color->name.'</option>';
-	}
+  foreach ($colors as $color) {
+          $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
+          $hextxtcolor = sprintf("#%02x%02x%02x", 255-$color->rot, 255-$color->gruen, 255-$color->blau);
+          echo '<option value="'.$color->id.'" style="background:'.$hexbgcolor.';color:'.$hextxtcolor.'">'.$color->name.'</option>';
+  }
 
 	echo '</select><br/>';
 
-        echo '<select name=farbe2>';
+  echo '<select name=farbe2>';
 
-        foreach ($colors as $color) {
-                echo '<option value="'.$color->id.'">'.$color->name.'</option>';
-        }
+  foreach ($colors as $color) {
+          $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
+          $hextxtcolor = sprintf("#%02x%02x%02x", 255-$color->rot, 255-$color->gruen, 255-$color->blau);
+          echo '<option value="'.$color->id.'" style="background:'.$hexbgcolor.';color:'.$hextxtcolor.'">'.$color->name.'</option>';
+  }
 
-        echo '</select><br/>';
+  echo '</select><br/>';
 
-        echo '<select name=farbe3>';
+  echo '<select name=farbe3>';
 
-        foreach ($colors as $color) {
-                echo '<option value="'.$color->id.'">'.$color->name.'</option>';
-        }
+  foreach ($colors as $color) {
+          $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
+          $hextxtcolor = sprintf("#%02x%02x%02x", 255-$color->rot, 255-$color->gruen, 255-$color->blau);
+          echo '<option value="'.$color->id.'" style="background:'.$hexbgcolor.';color:'.$hextxtcolor.'">'.$color->name.'</option>';
+  }
 
-        echo '</select><br/>';
+  echo '</select><br/>';
 
 	echo '<div class="checkbox"><label><input type="checkbox" name="aktiv" checked="checked">Aktive Korporationen</label></div>';
 
