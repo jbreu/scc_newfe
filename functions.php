@@ -47,20 +47,24 @@ function get_colors() {
 function get_band($row) {
   $band=array();
   $colors=get_colors();
-  if ($row->farbe1!=0) {
-    $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe1])->rot, ($colors[(int)$row->farbe1])->gruen, ($colors[(int)$row->farbe1])->blau);
-  }
-  if ($row->farbe2!=0) {
-    $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe2])->rot, ($colors[(int)$row->farbe2])->gruen, ($colors[(int)$row->farbe2])->blau);
-  }
-  if ($row->farbe3!=0) {
-    $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe3])->rot, ($colors[(int)$row->farbe3])->gruen, ($colors[(int)$row->farbe3])->blau);
-  }
-  if ($row->farbe4!=0) {
-    $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe4])->rot, ($colors[(int)$row->farbe4])->gruen, ($colors[(int)$row->farbe4])->blau);
-  }
-  if ($row->farbe5!=0) {
-    $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$row->farbe5])->rot, ($colors[(int)$row->farbe5])->gruen, ($colors[(int)$row->farbe5])->blau);
+
+  for ($i=1;$i<11;++$i) {
+    switch ($i) {
+      case '1': $fi = $row->farbe1; break;
+      case '2': $fi = $row->farbe2; break;
+      case '3': $fi = $row->farbe3; break;
+      case '4': $fi = $row->farbe4; break;
+      case '5': $fi = $row->farbe5; break;
+      case '6': $fi = $row->farbe6; break;
+      case '7': $fi = $row->farbe7; break;
+      case '8': $fi = $row->farbe8; break;
+      case '9': $fi = $row->farbe9; break;
+      case '10': $fi = $row->farbe10; break;
+    }
+
+    if ($fi!=0) {
+      $band[] = sprintf("#%02x%02x%02x", ($colors[(int)$fi])->rot, ($colors[(int)$fi])->gruen, ($colors[(int)$fi])->blau);
+    }
   }
   return $band;
 }
@@ -97,6 +101,21 @@ function get_ereignistypen() {
 	}
 
   return $ereignistypen;
+}
+
+function check_string($str) {
+  // https://stackoverflow.com/questions/110575/do-htmlspecialchars-and-mysql-real-escape-string-keep-my-php-code-safe-from-inje/110576#110576
+  $str = mb_convert_encoding($str, 'UTF-8', 'UTF-8');
+  $str = htmlentities($str, ENT_QUOTES, 'UTF-8');
+  return $str;
+}
+
+function check_numeric($in) {
+  if ($in != 'NULL' && !empty($in) && !is_numeric($in)) {
+    die("Falsches Datenformat!");
+  } else {
+    return intval($in);
+  }
 }
 
 ?>
