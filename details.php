@@ -18,7 +18,7 @@
   // Make changes if corresponding POST variables are set;
   include 'change.php';
 
-	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion_text, korporation.aufgegangenin_id as fusion_id, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
+	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion_text, korporation.aufgegangenin_id as fusion_id, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5, band.farbe6 as farbe6, band.farbe7 as farbe7, band.farbe8 as farbe8, band.farbe9 as farbe9, band.farbe10 as farbe10, band.id as bid FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
 	$statement = $mysqli->prepare($sql);
 	$statement->execute();
 
@@ -61,11 +61,17 @@
 		echo "Verband: ".$row->verbandname."<br/><br/>";
 
     $band = get_band($row);
-		echo "<table><tr>";
-		foreach ($band as $farb) {
-			echo "<td bgcolor=".$farb.">__</td>";
-		}
-		echo "</tr></table>";
+    if (!empty($band)) {
+  		echo "<table style='display:inline-table'><tr>";
+  		foreach ($band as $farb) {
+  			echo "<td bgcolor=".$farb.">__</td>";
+  		}
+  		echo "</tr></table>";
+      echo "   <a href='coloredit.php?kid=".$kid."&bid=".$row->bid."'>(Ändern)</a>";
+    } else {
+      echo "<a href='coloredit.php?kid=".$kid."&bid=0'>Farben hinzufügen</a>";
+    }
+
 		echo "<br/>";
 	}
 

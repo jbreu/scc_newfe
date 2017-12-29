@@ -24,4 +24,33 @@ if (isset($_POST['name'])) {
 
 }
 
+if (isset($_POST['bid']) && is_numeric($_POST['bid'])) {
+  if ($_POST['bid']!=0) {
+
+    if ($_POST['farbe1']=='NULL') {
+      $sql = "DELETE FROM band WHERE id=".$_POST['bid'];
+
+      if ($mysqli->query($sql) === FALSE) {
+        echo "Farben konnten nicht gelöscht werden.". $mysqli->error;
+      } else {
+        echo "Farben wurden gelöscht.";
+      }
+    } else {
+
+      $sql = "UPDATE band SET typ='1', farbe1='".check_numeric($_POST['farbe1'])."', farbe2='".check_numeric($_POST['farbe2'])."', farbe3='".check_numeric($_POST['farbe3'])."', farbe4='".check_numeric($_POST['farbe4'])."', farbe5='".check_numeric($_POST['farbe5'])."', farbe6='".check_numeric($_POST['farbe6'])."', farbe7='".check_numeric($_POST['farbe7'])."', farbe8='".check_numeric($_POST['farbe8'])."', farbe9='".check_numeric($_POST['farbe9'])."', farbe10='".check_numeric($_POST['farbe10'])."', korporation='".check_numeric($_POST['kid'])."' WHERE id=".check_numeric($_POST['bid']);
+
+      if ($mysqli->query($sql) === FALSE) {
+          echo "Änderungen konnten nicht gespeichert werden." ;//. $mysqli->error;
+      }
+    }
+  } else {
+    $sql = "INSERT INTO band (typ, farbe1, farbe2, farbe3, farbe4, farbe5, farbe6, farbe7, farbe8, farbe9, farbe10, korporation, vonunten, unsicher
+    ) VALUES (1, '".check_numeric($_POST['farbe1'])."', '".check_numeric($_POST['farbe2'])."', '".check_numeric($_POST['farbe3'])."', '".check_numeric($_POST['farbe4'])."', '".check_numeric($_POST['farbe5'])."', '".check_numeric($_POST['farbe6'])."', '".check_numeric($_POST['farbe7'])."', '".check_numeric($_POST['farbe8'])."', '".check_numeric($_POST['farbe9'])."', '".check_numeric($_POST['farbe10'])."', '".check_numeric($_POST['kid'])."', 0, 0)";
+
+    if ($mysqli->query($sql) === FALSE) {
+        echo "Neue Farben konnten nicht angelegt werden.". $mysqli->error;
+    }
+  }
+}
+
 ?>
