@@ -118,4 +118,32 @@ function check_numeric($in) {
   }
 }
 
+/*
+  Workaround: Lösche Eintrag in der Datenbank und passe dann in der History-Tabelle den Editor des Löscheintrags an.
+*/
+function delete_from_table($table, $id, $editor) {
+  $mysqli = init_db();
+
+  $sql = "DELETE FROM ".$table." WHERE id=".$id;
+
+  $result = $mysqli->query($sql);
+
+  if ( $result === FALSE) {
+    //die($mysqli->error);
+    return $result;
+  }
+
+  // Passe History-Eintrag an
+	$getdelev = "SELECT * FROM ".$table."_history WHERE id=".$id." ORDER BY revision DESC";
+	$statement = $mysqli->prepare($getdelev);
+	$statement->execute();
+	$result = $statement->get_result();
+
+  $row = $result->fetch_object();
+  $keyrev = $row->revision;
+
+  $sqlhistupdate = "UPDATE ".$table."_history SET editor=".$editor." WHERE id=".$id." AND revision=".$keyrev;
+  $mysqli->query($sqlhistupdate);
+}
+
 ?>

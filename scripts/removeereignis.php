@@ -15,6 +15,7 @@ if(!isset($_SESSION['userid'])) {
 }
 
 include '../settings.php';
+include '../functions.php';
 
 $mysqli = new mysqli($sccdbhost, $sccdbuser, $sccdbpassword, $sccdbname);
 $mysqli->set_charset("utf8");
@@ -34,11 +35,7 @@ if (empty($editor) || !is_numeric($editor)) {
   errormsg('Ungültiger Bearbeiter!');
 }
 
-$sql = "DELETE FROM ereignis WHERE id=".$eid;
-$statement = $mysqli->prepare($sql);
-$state = $statement->execute();
-
-while (false===$state) {
+if (delete_from_table("ereignis", $eid, $editor)===FALSE) {
   errormsg("Datensatz konnte nicht bearbeitet werden!");
 }
 

@@ -18,9 +18,7 @@ if ($mysqli->connect_errno) {
 
 if ($kid!=0) {
 
-  $sql = "DELETE FROM korporation WHERE id=".$kid;
-
-  if ($mysqli->query($sql) === FALSE) {
+  if (delete_from_table("korporation", $kid, check_numeric($_SESSION['userid'])) === FALSE) {
     echo "Die Korporation konnte nicht gelöscht werden.";//. $mysqli->error;
   } else {
     echo "Die Korporation wurde gelöscht.";
