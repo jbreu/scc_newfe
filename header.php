@@ -5,8 +5,9 @@ include 'functions.php';
 header("Content-Type: text/html; charset=utf-8");
 session_start();
 if(!isset($_SESSION['userid'])) {
- echo '<head><meta http-equiv="refresh" content="3;url=https://korpozoo.de/scc/login.php" /></head>';
- die('Bitte zuerst <a href="login.php">einloggen</a>');
+ $url = substr(htmlspecialchars( $_SERVER[REQUEST_URI], ENT_QUOTES, 'UTF-8' ), 5);
+ echo '<head><meta http-equiv="refresh" content="3;url=https://korpozoo.de/scc/login.php?url='.$url.'" /></head>';
+ die('Bitte zuerst <a href="login.php?url='.$url.'">einloggen</a>');
 }
 
 //Abfrage der Nutzer ID vom Login

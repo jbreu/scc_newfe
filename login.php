@@ -18,7 +18,13 @@ if(isset($_GET['login'])) {
  if ($user !== false && password_verify($passwort, $user['user_password'])) {
   $_SESSION['userid'] = $user['user_id'];
   $_SESSION['username'] = $user['username'];
-  die('Login erfolgreich. Weiter zu <a href="index.php">internen Bereich</a>');
+  if (isset($_GET["url"])) {
+    echo '<head><meta http-equiv="refresh" content="3;url='.$_GET['url'].'" /></head>';
+    die('Login erfolgreich. Weiter zu <a href="'.$_GET['url'].'">internen Bereich</a>');
+  } else {
+    echo '<head><meta http-equiv="refresh" content="3;url=index.php" /></head>';
+    die('Login erfolgreich. Weiter zu <a href="index.php">internen Bereich</a>');
+  }
  } else {
   $errorMessage = "Die Kombination aus Benutzername und Passwort war ungültig<br>";
  }
@@ -46,7 +52,13 @@ if(isset($errorMessage)) {
     <div class="row">
         <div class="col-md-offset-5 col-md-3">
             <div class="form-login">
-            <form action="?login=1" method="post">
+            <?php
+              if (isset($_GET['url'])) {
+                echo '<form action="?login=1&url='.$_GET['url'].'" method="post">';
+              } else {
+                echo '<form action="?login=1" method="post">';
+              }
+            ?>
             <h4>Willkommen beim SCC</h4>
             <input type="text" id="userName" name="username" class="form-control input-sm chat-input" placeholder="Benutzername" />
             </br>
