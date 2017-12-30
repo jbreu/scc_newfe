@@ -92,4 +92,11 @@ while (false===$state) {
   errormsg("Datensatz konnte nicht hinzugefügt werden!");
 }
 
+header('HTTP/1.1 200');
+header('Content-Type: application/json; charset=UTF-8');
+$result=array();
+$result['newid'] = $statement->insert_id;
+//feel free to add other information like $result['errorcode']
+die(json_encode($result));
+
 ?>

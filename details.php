@@ -154,6 +154,7 @@ echo '</div>';
    <th>Zeitraum</th>
    <th>Details</th>
    <th>Quelle</th>
+   <th></th>
  </tr>
 
 <?php
@@ -162,7 +163,9 @@ echo '</div>';
    $result = $statement->get_result();
 
    while($row = $result->fetch_object()) {
-     echo "<tr><td>";
+     echo '<tr id="erow'.$row->eid.'">';
+
+     echo "<td>";
      if (!empty($row->datum) && $row->datum!="0000-00-00") {
        echo $row->datum;
      } else {
@@ -195,10 +198,14 @@ echo '</div>';
      echo implode(", ", $felder);
 
      if (!empty($row->quellekuerzel) && !empty($row->quelleid)) {
-       echo "</td><td><a href='quellen.php#anker".$row->quelleid."'>".$row->quellekuerzel."</a></td></tr>";
+       echo "</td><td><a href='quellen.php#anker".$row->quelleid."'>".$row->quellekuerzel."</a></td>";
      } else {
-       echo "</td><td></td></tr>";
+       echo "</td><td></td>";
      }
+
+     echo '<td><button type="button" class="btn btn-danger btn-sm removeevent" id="rmbtn'.$row->eid.'"><span class="glyphicon glyphicon-trash"></button></td>';
+
+     echo "</tr>";
    }
 ?>
  </tbody>
