@@ -2,6 +2,36 @@ function toggler(divId) {
   $("#" + divId).toggle();
 }
 
+function hasClass(elem, className) {
+    return elem.className.split(' ').indexOf(className) > -1;
+}
+
+document.addEventListener('click', function (e) {
+    if (hasClass(e.target, 'removeevent')) {
+      if (confirm("Wollen Sie dieses Ereignis wirklich löschen?")) {
+        var eid = e.target.id.substring(5); // $(this) refers to button that was clicked
+        var editor = $("#editor").val();
+        jQuery.ajax({
+          type    : "POST",
+          url     : "scripts/removeereignis.php",
+          data    : { editor:editor,
+                      eid:eid
+                    },
+          success : function(){
+            var row = document.getElementById("erow"+eid);
+            row.parentNode.removeChild(row);
+          },
+          error : function (xhr, ajaxOptions, thrownError){
+            //On error, we alert user
+            //alert(thrownError);
+            var responseText=JSON.parse(xhr.responseText);
+            alert(responseText.messages);
+          },
+        });
+      }
+    }
+}, false);
+
 $(document).ready(function() {
     $("#add").click(function(){
         var element = $(this);
@@ -31,8 +61,8 @@ $(document).ready(function() {
                       ktypid:ktypid,
                       editor:editor
                     },
-          success : function(){
-               var line="<tr><td>";
+          success : function(data){
+               var line='<tr id="erow'+data["newid"]+'"><td>';
 
                if (evgtag!=="" && evgtag!=="0000-00-00") {
                  line+= evgtag;
@@ -66,10 +96,14 @@ $(document).ready(function() {
                line += felder.join(", ");
 
                if (quelle!=="") {
-                 line+= "</td><td><a href='quellen.php#anker"+quelle+"'>"+$("#quelle").val()+"</a></td></tr>";
+                 line+= "</td><td><a href='quellen.php#anker"+quelle+"'>"+$("#quelle").val()+"</a></td>";
                } else {
-                 line+= "</td><td></td></tr>";
+                 line+= "</td><td></td>";
                }
+
+               line += '<td><button type="button" class="btn btn-danger btn-sm removeevent" id="rmbtn'+data["newid"]+'"><span class="glyphicon glyphicon-trash"></button></td>';
+
+               line += "</tr>";
 
                $('#ereignisse > tbody:last').append(line);
              },
