@@ -1,12 +1,13 @@
 <?php include 'header.php';?>
 
-<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a><br/><br/>
+<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a>
+<a onclick="filter()" id="filterBtn" class="btn btn-success" role="button">Filter anwenden</a><br/><br/>
 
 <table id=findex class="table table-hover table-responsive">
 	<script src="scripts/filter.js"></script>
 	<tr class="active">
-		<th>Name<br/><input type="text" id="filterName" onkeyup="filter()" placeholder="Filter..."></th>
-		<th>Ort<br/><input type="text" id="filterOrt" onkeyup="filter()" placeholder="Filter..."></th>
+		<th>Name<br/><input type="text" id="filterName" placeholder="Filter..."></th>
+		<th>Ort<br/><input type="text" id="filterOrt" placeholder="Filter..."></th>
 
 <?php
 	if (isset($_GET['aktiv']) && strcmp($_GET["aktiv"],"on")==0)
@@ -15,7 +16,7 @@
 		echo "<th>Aktiv?<br/><input type=\"checkbox\" onclick=\"window.location.assign('table.php?aktiv=on')\"/></th>";
 ?>
 		<th>Gründung</th>
-		<th>Wahlspruch<br/><input type="text" id="filterWahlspruch" onkeyup="filter()" placeholder="Filter..."></th>
+		<th>Wahlspruch<br/><input type="text" id="filterWahlspruch" placeholder="Filter..."></th>
 		<th>Aufgegangen in</th>
 		<!--<th>Verband</th>-->
 		<!--<th>Region</th>-->
