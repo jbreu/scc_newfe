@@ -1,3 +1,7 @@
+#filterBtn {
+	float: right;
+}
+
 #filterName, #filterOrt, #filterWahlspruch, input[type='checkbox'] {
     background-image: url('/scc/css/searchicon.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
