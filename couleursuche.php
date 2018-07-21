@@ -21,7 +21,16 @@ while ($row = $result->fetch_object()) {
 
 echo '<form action="table.php" method="get" width="300px">';
 
-for ($i = 1; $i < 11; ++$i) {
+echo '<select name="farbe1">';
+
+foreach ($colors as $color) {
+       $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
+       $hextxtcolor = sprintf("#%02x%02x%02x", 255-$color->rot, 255-$color->gruen, 255-$color->blau);
+       echo '<option value="'.$color->id.'" style="background:'.$hexbgcolor.';color:'.$hextxtcolor.'">'.$color->name.'</option>';
+}
+echo '</select><br/>';
+	
+for ($i = 2; $i < 11; ++$i) {
 	echo '<select name="farbe"'.$i.'>';
 
 	foreach ($colors as $color) {
