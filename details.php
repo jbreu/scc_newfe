@@ -149,14 +149,15 @@ echo '</div>';
 <script src="scripts/bootstrap-datetimepicker.min.js"></script>
 
 <table id=ereignisse class="table table-hover table-responsive">
-<tbody>
+<thead>
  <tr class="active">
    <th>Zeitraum</th>
    <th>Details</th>
    <th>Quelle</th>
    <th></th>
  </tr>
-
+ </thead>
+ <tbody>
 <?php
    $statement->execute();
 

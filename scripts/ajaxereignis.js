@@ -105,7 +105,21 @@ $(document).ready(function() {
 
                line += "</tr>";
 
-               $('#ereignisse > tbody:last').append(line);
+               var tbody = $('#ereignisse > tbody:last');
+
+			   tbody.append(line);
+
+			   var rows = $('tr', tbody);
+			   rows.sort(function(a, b) {
+				 var keyA = $('td', a)[0].innerHTML;
+				 var keyB = $('td', b)[0].innerHTML;
+
+				 return keyA.localeCompare(keyB);
+			   });
+
+			   rows.each(function(index, row) {
+				 tbody.append(row);
+			   });
              },
           error : function (xhr, ajaxOptions, thrownError){
                //On error, we alert user
