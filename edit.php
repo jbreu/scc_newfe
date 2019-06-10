@@ -18,8 +18,8 @@
   	}
 
     echo '
-      <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css" />
-      <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.css" />
+      <script src="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.js"></script>
       <script src="scripts/autocomplete.js"></script>'
     ;
 

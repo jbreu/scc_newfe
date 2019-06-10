@@ -45,7 +45,7 @@ if (isset($_POST['bid']) && is_numeric($_POST['bid'])) {
     $sql = "INSERT INTO band (typ, farbe1, farbe2, farbe3, farbe4, farbe5, farbe6, farbe7, farbe8, farbe9, farbe10, korporation, vonunten, unsicher, editor) VALUES (1, '".check_numeric($_POST['farbe1'])."', '".check_numeric($_POST['farbe2'])."', '".check_numeric($_POST['farbe3'])."', '".check_numeric($_POST['farbe4'])."', '".check_numeric($_POST['farbe5'])."', '".check_numeric($_POST['farbe6'])."', '".check_numeric($_POST['farbe7'])."', '".check_numeric($_POST['farbe8'])."', '".check_numeric($_POST['farbe9'])."', '".check_numeric($_POST['farbe10'])."', '".check_numeric($_POST['kid'])."', 0, 0, '".check_numeric($_SESSION['userid'])."')";
 
     if ($mysqli->query($sql) === FALSE) {
-        echo "Neue Farben konnten nicht angelegt werden.". $mysqli->error;
+        echo "Neue Farben konnten nicht angelegt werden.";//. $mysqli->error;
     }
   }
 }
