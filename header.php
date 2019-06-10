@@ -26,17 +26,17 @@ $username = $_SESSION['username'];
   <title>SCC Online</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../scc_ext/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <!--<link href="bootstrap-3.3.7/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
+  <!--<link href="../scc_ext/bootstrap-3.3.7/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">-->
 
   <!-- Custom styles for this template -->
   <!--<link href="starter-template.css" rel="stylesheet">-->
 
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <!--<script src="bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>-->
+  <!--<script src="../scc_ext/bootstrap-3.3.7/assets/js/ie-emulation-modes-warning.js"></script>-->
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>

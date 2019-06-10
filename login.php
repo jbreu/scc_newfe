@@ -45,7 +45,7 @@ if(isset($errorMessage)) {
 }
 ?>
 
-<link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="../scc_ext/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="scripts/login.css" rel="stylesheet">
 
 <div class="container">
