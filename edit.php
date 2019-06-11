@@ -51,11 +51,6 @@
     $row->fusionid = '';
     $row->verbandname = '';
     $row->verbandid = '';
-    $row->farbe1 = '';
-    $row->farbe2 = '';
-    $row->farbe3 = '';
-    $row->farbe4 = '';
-    $row->farbe5 = '';
   }
 
 	echo "<form action='details.php?kid=".$kid."' method='post'>";
