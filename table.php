@@ -35,10 +35,8 @@
 	if (isset($_GET['farbe1']) && is_numeric($_GET['farbe1'])) {
 		$sql = $sql." AND band.farbe1=".$_GET['farbe1'];
 		for($i=2;$i<11;++$i) {
-			if (isset($_GET['farbe'.$i]) && is_numeric($_GET['farbe'.$i])) {
+			if (isset($_GET['farbe'.$i]) && is_numeric($_GET['farbe'.$i]) && $_GET['farbe'.$i]>0) {
 				$sql = $sql." AND band.farbe".$i."=".$_GET['farbe'.$i];
-			} else {
-				$sql = $sql." AND band.farbe".$i."=0";
 			}
 		}
 	}

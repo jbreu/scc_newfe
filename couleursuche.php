@@ -23,15 +23,19 @@ echo '<form action="table.php" method="get" width="300px">';
 
 echo '<select name="farbe1">';
 
+echo '<option value="0" ></option>';
+
 foreach ($colors as $color) {
        $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
        $hextxtcolor = sprintf("#%02x%02x%02x", 255-$color->rot, 255-$color->gruen, 255-$color->blau);
        echo '<option value="'.$color->id.'" style="background:'.$hexbgcolor.';color:'.$hextxtcolor.'">'.$color->name.'</option>';
 }
 echo '</select><br/>';
-	
+
 for ($i = 2; $i < 11; ++$i) {
-	echo '<select name="farbe"'.$i.'>';
+	echo '<select name="farbe'.$i.'">';
+
+	echo '<option value="0" ></option>';
 
 	foreach ($colors as $color) {
         $hexbgcolor = sprintf("#%02x%02x%02x", $color->rot, $color->gruen, $color->blau);
