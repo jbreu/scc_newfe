@@ -18,7 +18,7 @@
   // Make changes if corresponding POST variables are set;
   include 'change.php';
 
-	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion_text, korporation.aufgegangenin_id as fusion_id, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5, band.farbe6 as farbe6, band.farbe7 as farbe7, band.farbe8 as farbe8, band.farbe9 as farbe9, band.farbe10 as farbe10, band.id as bid FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
+	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, ort.region as region, korporation.strasse as strasse, korporation.postleitzahl as postleitzahl, korporation.emailadresse as emailadresse, korporation.telefonnummer as telefonnummer, korporation.internetseite as internetseite,  korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion_text, korporation.aufgegangenin_id as fusion_id, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5, band.farbe6 as farbe6, band.farbe7 as farbe7, band.farbe8 as farbe8, band.farbe9 as farbe9, band.farbe10 as farbe10, band.id as bid FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
 	$statement = $mysqli->prepare($sql);
 	$statement->execute();
 
@@ -27,17 +27,8 @@
   $sccid=0;
 
 	while($row = $result->fetch_object()) {
-    // Zeige Folio-PDF (falls vorhanden)
-    $filestr = 'files/folios/*'.strtolower(trim($row->sccid)).'.pdf';
-    $list = glob($filestr);
-    if (sizeof($list)==1) {
-    echo '<div style="float:right"><object data="'.$list[0].'" type="application/pdf" width=600px height=400px>
-            <embed src="'.$list[0].'" type="application/pdf" />
-        </object></div>';
-    }
-
 		echo "<h1>".$row->name."</h1>";
-    echo '<a href="edit.php?kid='.$kid.'" class="btn btn-info" role="button">Bearbeiten</a> <a class="btn btn-danger" role="button" onclick="return confirm_click();" href="https://korpozoo.de/scc/delete.php?kid='.$kid.'">Löschen</a><br/>';
+    echo '<a href="edit.php?kid='.$kid.'" class="btn btn-info" role="button">Bearbeiten</a> <br/>';//<a class="btn btn-danger" role="button" onclick="return confirm_click();" href="https://korpozoo.de/scc/delete.php?kid='.$kid.'">Löschen</a><br/>';
 
     echo '<script>
       function confirm_click() {
@@ -45,10 +36,38 @@
       }
     </script>';
 
-		echo "Ort: ".$row->ortname." (".$row->region.")<br/>";
+    if (!empty($row->strasse)) {
+  	   echo "Straße: ".$row->strasse."<br/>";
+    }
+
+    echo "SCC ID: ";
+    if (!empty($row->sccid)) {
+       echo $row->sccid."<br/>";
+    }
+
+		echo "Ort: ";
+    if (!empty($row->postleitzahl)) {
+       echo $row->postleitzahl." ";
+    }
+    echo $row->ortname." (".$row->region.")<br/>";
+
+    if (!empty($row->telefonnummer)) {
+  	   echo "Telefonnummer: ".$row->telefonnummer."<br/>";
+    }
+
+    if (!empty($row->emailadresse)) {
+  	   echo "Emailadresse: <a href='mailto:".$row->emailadresse."'>".$row->emailadresse."</a><br/>";
+    }
+
+    if (!empty($row->internetseite)) {
+  	   echo "Internetseite: <a href='".$row->internetseite."'>".$row->internetseite."</a><br/>";
+    }
+
   	echo "Aktiv: ".($row->aktiv?"Ja":"Nein")."<br/>";
   	echo "Gründung: ".$row->gtag."".$row->gzeitraum."<br/>";
-  	echo "Wahlspruch: ".$row->wahlspruch."<br/>";
+    if (!empty($row->wahlspruch)) {
+  	   echo "Wahlspruch: ".$row->wahlspruch."<br/>";
+    }
 
     $sccid = str_replace(" ", "", str_replace("-", "", $row->sccid));
 
@@ -58,7 +77,9 @@
       echo "Aufgegangen in: ".$row->fusion_text."<br/>";
     }
 
-		echo "Verband: ".$row->verbandname."<br/><br/>";
+    if (!empty($row->verbandname)) {
+		    echo "Verband: ".$row->verbandname."<br/><br/>";
+    }
 
     $band = get_band($row);
     if (!empty($band)) {
@@ -109,7 +130,7 @@
 
  echo '</div>';
 
- $sql = "SELECT * FROM zirkel WHERE sccid='".$sccid."'";
+ $sql = "SELECT * FROM zirkel WHERE sccid='".$sccid."' GROUP BY dateiname ORDER BY dateiname ASC";
  $statement = $mysqli->prepare($sql);
  $statement->execute();
  $statement->store_result();
@@ -123,7 +144,7 @@
 
  while($row = $result->fetch_object()) {
      echo "Zirkel:<br><div style='padding-left:5em'>";
-        echo "<img src='files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'> ";
+        echo "<img src='../scc_data/files/zirkel/".$row->dateiname."' style='width:100px;height:100px;'> ";
      echo "</div>";
 }
 echo '</div>';
@@ -131,7 +152,7 @@ echo '</div>';
 ?>
 
 <?php
-   $sql = "SELECT ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid." ORDER BY datum";
+   $sql = "SELECT ereignis.id as eid, ereignis.datum as datum, ereignis.text as text, ereignis.jahr as jahr, ereignistyp.name as typname, ereignis.fremdeKorporation1 as fremdeKorporation1_id, korporationt1.name as fremdeKorporation1_name, ereignis.fremdeKorporation2 as fremdeKorporation2_id, korporationt2.name as fremdeKorporation2_name, ereignis.verband as verbandid, verband.name as verbandname, korporationstyp.name as ktypname, quelle.id as quelleid, quelle.kuerzel as quellekuerzel FROM ereignis LEFT JOIN ereignistyp ON ereignis.type=ereignistyp.id LEFT JOIN korporation as korporationt1 ON ereignis.fremdeKorporation1=korporationt1.id LEFT JOIN korporation as korporationt2 ON ereignis.fremdeKorporation2=korporationt2.id LEFT JOIN verband ON ereignis.verband=verband.id LEFT JOIN korporationstyp ON ereignis.korporationstyp=korporationstyp.id LEFT JOIN quelle ON ereignis.quelle=quelle.id WHERE ereignis.korporation=".$kid." ORDER BY datum";
    $statement = $mysqli->prepare($sql);
    $statement->execute();
    $statement->store_result();
@@ -140,8 +161,8 @@ echo '</div>';
    <div class="panel">';
 ?>
 
-<link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css" />
-<script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.css" />
+<script src="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script src="scripts/autocomplete.js"></script>
 <script src="scripts/ajaxereignis.js"></script>
 <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
@@ -342,7 +363,7 @@ if ($kid!=0) {
       ';
 
 
-  	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aufgegangenin_id=".$kid;
+  	$sql = "SELECT korporation.id as kid, korporation.name as name, ort.name as ortname, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5, band.farbe6 as farbe6, band.farbe7 as farbe7, band.farbe8 as farbe8, band.farbe9 as farbe9, band.farbe10 as farbe10 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.aufgegangenin_id=".$kid;
 
   	$statement = $mysqli->prepare($sql);
   	$statement->execute();
@@ -373,6 +394,67 @@ if ($kid!=0) {
   }
 }
 echo '</div>';
+
+  // Zeige Folio-HTM (falls vorhanden)
+  $filestr = '../scc_data/files/folios/*'.strtoupper(trim($sccid)).'*.htm';
+  $list = glob($filestr);
+  if (sizeof($list)==1) {
+    echo '<button class="accordion">Folio</button>
+    <div class="panel">';
+      echo "Eventuell erscheinen die Inhalte der Dokumente erst, wenn man etwas scrollt.<br/>";
+      echo '<iframe src="'.$list[0].'" width="800" height="600"></iframe>';
+    echo '</div>';
+  } else {
+    // Zeige Folio-PDF (falls vorhanden)
+    $filestr = 'files/folios/*'.strtolower(trim($sccid)).'.pdf';
+    $list = glob($filestr);
+    if (sizeof($list)==1) {
+      echo '<button class="accordion">Folio</button>
+      <div class="panel">';
+        echo '<object data="'.$list[0].'" type="application/pdf" height=600px>
+                <embed src="'.$list[0].'" type="application/pdf" />
+            </object>';
+      echo '</div>';
+    }
+  }
+
+echo '<button class="accordion">Versionsgeschichte</button>
+<div class="panel">';
+  $sql = "SELECT * FROM korporation_history WHERE id=".$kid." ORDER BY dt_datetime ASC";
+
+  $statement = $mysqli->prepare($sql);
+  $statement->execute();
+
+  $result = $statement->get_result();
+
+  $first = true;
+
+  while($row = $result->fetch_object()) {
+    if (!$first && strcmp($row->action, "insert")==0) {
+      continue;
+    }
+
+    $change="";
+
+    switch ($row->action) {
+      case 'insert':
+        $change="Neuanlage";
+        break;
+
+      case 'update':
+        $change="Änderung";
+        break;
+
+      default:
+        // code...
+        break;
+    }
+
+    echo $row->dt_datetime." ".$change."<br>";
+    $first=false;
+  }
+echo '</div>';
+
 ?>
 
 
