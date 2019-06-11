@@ -18,7 +18,7 @@ if(isset($_GET['login'])) {
  if ($user !== false && password_verify($passwort, $user['user_password'])) {
   $_SESSION['userid'] = $user['user_id'];
   $_SESSION['username'] = $user['username'];
-  if (isset($_GET["url"])) {
+  if (isset($_GET["url"]) && !empty($_GET["url"])) {
     echo '<head><meta http-equiv="refresh" content="3;url='.$_GET['url'].'" /></head>';
     die('Login erfolgreich. Weiter zu <a href="'.$_GET['url'].'">internen Bereich</a>');
   } else {
