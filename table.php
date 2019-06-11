@@ -1,6 +1,6 @@
 <?php include 'header.php';?>
 
-<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a><br/><br/>
+<!--<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a><br/><br/>-->
 
 <table id=findex class="table table-hover table-responsive">
 	<script src="scripts/filter.js"></script>
