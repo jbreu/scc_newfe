@@ -1,7 +1,7 @@
 <?php include 'header.php';?>
 
 <!--<a href="edit.php?kid=0" class="btn btn-success" role="button">Neue Korporation anlegen</a><br/><br/>-->
-<a onclick="filter()" id="filterBtn" class="btn btn-success" role="button">Filter anwenden</a><br/><br/>
+<a onclick="filter()" id="filterBtn" class="btn btn-success" role="button">Filter anwenden</a><br/><br/> 
 
 <table id=findex class="table table-hover table-responsive">
 	<script src="scripts/filter.js"></script>
