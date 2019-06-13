@@ -18,7 +18,7 @@ if(isset($_GET['login'])) {
  if ($user !== false && password_verify($passwort, $user['user_password'])) {
   $_SESSION['userid'] = $user['user_id'];
   $_SESSION['username'] = $user['username'];
-  if (isset($_GET["url"])) {
+  if (isset($_GET["url"]) && !empty($_GET["url"])) {
     echo '<head><meta http-equiv="refresh" content="3;url='.$_GET['url'].'" /></head>';
     die('Login erfolgreich. Weiter zu <a href="'.$_GET['url'].'">internen Bereich</a>');
   } else {
@@ -45,7 +45,7 @@ if(isset($errorMessage)) {
 }
 ?>
 
-<link href="bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="../scc_ext/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="scripts/login.css" rel="stylesheet">
 
 <div class="container">

@@ -18,12 +18,12 @@
   	}
 
     echo '
-      <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css" />
-      <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+      <link rel="stylesheet" href="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.css" />
+      <script src="../scc_ext/jquery-ui-1.12.1/jquery-ui.min.js"></script>
       <script src="scripts/autocomplete.js"></script>'
     ;
 
-  	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, korporation.postleitzahl as postleitzahl, korporation.strasse as strasse, korporation.telefonnummer as telefonnummer, korporation.emailadresse as emailadresse, korporation.internetseite as internetseite, korporation.waffenspruch as waffenspruch, korporation.mensurstandpunkt as mensurstandpunkt, ort.id as ortid, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, korporation.aufgegangenin_id as fusionid, korporation.verband as verbandid, verband.name as verbandname, band.farbe1 as farbe1, band.farbe2 as farbe2, band.farbe3 as farbe3, band.farbe4 as farbe4, band.farbe5 as farbe5 FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
+  	$sql = "SELECT korporation.name as name, korporation.sccid as sccid, ort.name as ortname, korporation.postleitzahl as postleitzahl, korporation.strasse as strasse, korporation.telefonnummer as telefonnummer, korporation.emailadresse as emailadresse, korporation.internetseite as internetseite, korporation.waffenspruch as waffenspruch, korporation.mensurstandpunkt as mensurstandpunkt, ort.id as ortid, ort.region as region, korporation.aktiv as aktiv, korporation.gruendungstag as gtag, korporation.gruendungszeitraum as gzeitraum, korporation.wahlspruch as wahlspruch, korporation.aufgegangenin_text as fusion, korporation.aufgegangenin_id as fusionid, korporation.verband as verbandid, verband.name as verbandname FROM korporation LEFT JOIN ort ON korporation.ort=ort.id LEFT JOIN verband on korporation.verband=verband.id LEFT JOIN band on band.korporation=korporation.id WHERE korporation.id=".$kid;
   	$statement = $mysqli->prepare($sql);
   	$statement->execute();
 
@@ -51,11 +51,6 @@
     $row->fusionid = '';
     $row->verbandname = '';
     $row->verbandid = '';
-    $row->farbe1 = '';
-    $row->farbe2 = '';
-    $row->farbe3 = '';
-    $row->farbe4 = '';
-    $row->farbe5 = '';
   }
 
 	echo "<form action='details.php?kid=".$kid."' method='post'>";
